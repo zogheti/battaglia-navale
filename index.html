@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#082d43">
+    <title>Battaglia Navale</title>
+    <link rel="icon" type="image/png" href="assets/icons/icona.gif">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <main class="game-shell">
+    <header class="topbar">
+      <div>
+        <h1>Battaglia <span>Navale</span></h1>
+      </div>
+      <div class="top-actions">
+          <label class="difficulty-label" for="difficulty">
+              Difficoltà
+              <select id="difficulty">
+                  <option value="easy">Facile</option>
+                  <option value="normal" selected>Normale</option>
+                  <option value="hard">Difficile</option>
+              </select>
+          </label>
+          <button id="sound-toggle" class="button button-quiet" type="button" aria-pressed="true">♫ Audio ON</button>
+        <button id="new-game" class="button button-quiet" type="button">Nuova partita</button>
+      </div>
+    </header>
+
+
+    <section id="setup-panel" class="setup-panel">
+      <div class="setup-heading">
+        <div>
+          <p class="eyebrow">FASE 01</p>
+          <h2>Schiera la tua flotta</h2>
+          <p>Le navi devono avere almeno una casella libera fra loro, anche in diagonale.</p>
+        </div>
+        <div class="setup-actions">
+          <button id="rotate-ship" class="button button-quiet" type="button">↻ Ruota: orizzontale</button>
+          <button id="auto-place" class="button button-quiet" type="button">Posizionamento automatico</button>
+          <button id="start-game" class="button button-primary" type="button" disabled>Inizia partita →</button>
+        </div>
+      </div>
+      <div class="setup-content">
+        <div class="fleet-list" id="fleet-list" aria-label="Navi da posizionare"></div>
+        <div class="board-card setup-board-card">
+          <div class="board-title">
+            <div><span class="board-kicker">IL TUO SETTORE</span><h3>La mia flotta</h3></div>
+            <span class="board-chip" id="placed-count">0 / 7 posizionate</span>
+          </div>
+          <div id="setup-board" class="board-wrap"></div>
+          <p class="board-hint">Seleziona una nave nella lista, poi clicca la casella iniziale. Puoi anche cliccare una nave già posizionata per rimuoverla.</p>
+        </div>
+      </div>
+    </section>
+
+    <section id="battle-panel" class="battle-panel hidden">
+        <div class="boards">
+            <article class="board-card">
+                <div class="board-title">
+                    <div><span class="board-kicker">SETTORE ALFA</span><h3>La mia flotta</h3></div>
+                    <span class="board-chip" id="player-board-chip">In difesa</span>
+                </div>
+                <div id="player-board" class="board-wrap"></div>
+            </article>
+            <article class="board-card enemy-card">
+                <div class="board-title">
+                    <div><span class="board-kicker">SETTORE BRAVO</span><h3>Flotta nemica</h3></div>
+                    <span class="board-chip" id="enemy-board-chip">Bersagli nascosti</span>
+                </div>
+                <div id="enemy-board" class="board-wrap"></div>
+            </article>
+        </div>
+        <section class="status-panel" aria-live="polite">
+            <div class="status-light" id="status-light"></div>
+            <div class="status-copy">
+                <strong id="status-title">Prepara la tua flotta</strong>
+                <span id="status-message">Seleziona una nave e clicca sul tabellone per posizionarla.</span>
+            </div>
+            <div class="status-stat"><span>Navi tue</span><strong id="player-ships-left">7</strong></div>
+            <div class="status-stat"><span>Navi nemiche</span><strong id="enemy-ships-left">7</strong></div>
+        </section>
+
+        <section class="stats-grid">
+            <div class="mini-stat"><span>Colpi sparati</span><strong id="shots-count">0</strong></div>
+            <div class="mini-stat"><span>Colpi a segno</span><strong id="hits-count">0</strong></div>
+            <div class="mini-stat"><span>Precisione</span><strong id="accuracy-count">0%</strong></div>
+            <div class="mini-stat"><span>Turno</span><strong id="turn-count">Giocatore</strong></div>
+        </section>
+    </section>
+
+    <footer class="footer">
+      <span>Operazione Mare Aperto</span>
+      <button id="rules-toggle" class="text-button" type="button">Regole del gioco</button>
+    </footer>
+  </main>
+
+  <dialog id="rules-dialog" class="modal">
+    <form method="dialog">
+      <button class="modal-close" aria-label="Chiudi">×</button>
+      <p class="eyebrow">MANUALE OPERATIVO</p>
+      <h2>Regole del gioco</h2>
+      <ul>
+        <li>Ogni flotta contiene 7 navi e occupa 17 caselle.</li>
+        <li>Le navi possono essere orizzontali o verticali, anche sui bordi.</li>
+        <li>Tra due navi deve esserci almeno una casella libera, anche diagonalmente.</li>
+        <li>Durante la battaglia, un colpo a segno è indicato in rosso e l'acqua in blu.</li>
+        <li>Vince chi affonda tutte le navi avversarie.</li>
+      </ul>
+      <button class="button button-primary" type="submit">Ho capito</button>
+    </form>
+  </dialog>
+
+  <dialog id="result-dialog" class="modal result-modal">
+    <form method="dialog">
+      <p class="eyebrow">MISSIONE CONCLUSA</p>
+      <h2 id="result-title">Vittoria!</h2>
+      <p id="result-message"></p>
+      <div class="result-actions">
+        <button class="button button-primary" id="play-again" type="button">Gioca ancora</button>
+        <button class="button button-quiet" type="submit">Chiudi</button>
+      </div>
+    </form>
+  </dialog>
+
+  <script src="script.js"></script>
+</body>
+</html>
