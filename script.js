@@ -636,7 +636,11 @@ function finishGame(playerWon) {
 
     playSound(playerWon ? "victory" : "defeat");
     setStatus(playerWon ? "Missione compiuta" : "Missione fallita", playerWon ? "Nemico eliminato." : "Flotta persa.", playerWon ? "cyan" : "red");
-    ui.resultDialog.showModal();
+
+    // Mostra il popup del riassunto dopo 1.5 secondi
+    setTimeout(() => {
+        ui.resultDialog.showModal();
+    }, 1900);
 }
 
 /* ==========================================
